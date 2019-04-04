@@ -4,8 +4,8 @@ let c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let pos = new Vector(60,60);
-let vel = new Vector(.5,.2);
+// let pos = new Vector(60,60);
+// let vel = new Vector(.5,.2);
 
 function init() {
     pos.print();
@@ -24,6 +24,13 @@ function update() {
     c.stroke();
     requestAnimationFrame(update);
 }
+
+let pos = new Vector(5, 7);
+let vel = new Vector(1, 1);
+vel.scale(2);
+vel.print(); // <2, 2>
+pos.subVector(vel);
+pos.print();  // <3, 5>
 
 window.addEventListener('load', function(event) {
     init();
