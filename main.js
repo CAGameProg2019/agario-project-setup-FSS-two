@@ -4,33 +4,42 @@ let c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// let pos = new Vector(60,60);
-// let vel = new Vector(.5,.2);
+let foods = [];
+
+let colors = [
+    '#00f788',
+    'blue',
+    'red',
+    'purple',
+    'teal',
+    'grey'
+];
+
+    function randomColor() {
+        let index = Math.floor(Math.random() * colors.length);
+        return colors[index];
+    }
 
 function init() {
-    pos.print();
-
+    // let x = Math.random() * canvas.width;
+    // let y = Math.random() * canvas.height;
+    // let color = randomColor();
+    // foods.push(new Food(x, y, 20, color));
     update();
 }
 
 function update() {
     c.clearRect(0,0,canvas.width,canvas.height);
+    for(var i = 0; i <= 100; i++){
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let color = randomColor();
+        foods.push(new Food(x, y, 20, color));
+        foods[i].draw(c);
+    }
 
-    pos.addVector(vel);
-
-    c.beginPath();
-    c.arc(pos.x,pos.y,50,0,Math.PI*2,false)
-    c.closePath();
-    c.stroke();
     requestAnimationFrame(update);
 }
-
-let pos = new Vector(5, 7);
-let vel = new Vector(1, 1);
-vel.scale(2);
-vel.print(); // <2, 2>
-pos.subVector(vel);
-pos.print();  // <3, 5>
 
 window.addEventListener('load', function(event) {
     init();
