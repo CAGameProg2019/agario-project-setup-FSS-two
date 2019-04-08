@@ -20,6 +20,7 @@ class Vector {
     scale(s){//function that takes a scale factor s and multiplies the vector by that factor
         this.x *= s;
         this.y *= s;
+        return this;
     }
 
     print() {
