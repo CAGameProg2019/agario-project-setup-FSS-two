@@ -19,24 +19,34 @@ let colors = [
     'teal',
     'grey'
 ];
+let strokeColors = [
+    '#00b66',
+    'blueViolet',
+    'darkRed',
+    'violet',
+    'darkTeal',
+    'darkGrey'
+];
 
-    function randomColor() {
-        let index = Math.floor(Math.random() * colors.length);
-        return colors[index];
-    }
+function randomColor() {
+    let index = Math.floor(Math.random() * colors.length);
+    return colors[index];
+}
 
-    function generateFood(){
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let color = randomColor();
-        foods.push(new Food(x, y, 20, color));
-    }
+function generateFood(){
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height;
+    let color = randomColor();
+    foods.push(new Food(x, y, 20, color));
+}
 function init() {
     mpos = new Vector(canvas.width/2, canvas.height/2);
 
     let name = prompt("Enter a name!");
+    let color = randomColor();
+    let stroke = strokeColors[colors.indexOf(color)];
 
-    player = new Player(undefined, undefined, 25, randomColor(), name);
+    player = new Player(0, 0, 25, color, stroke, name, 4);
 
     for(var i = 0; i < FOOD_COUNT; i++){
         generateFood();
@@ -63,9 +73,8 @@ function update() {
         generateFood();
     }
 
-    player.x = mpos.x;
-    player.y = mpos.y
-    c.fillText(name,player.x,player.y);
+    player.update(mpos);
+
     player.draw(c);
 
     requestAnimationFrame(update);
@@ -77,6 +86,5 @@ window.addEventListener('load', function() {
     window.addEventListener('mousemove', function(event){
         mpos.x = event.clientX - canvas.offsetLeft;
         mpos.y = event.clientY - canvas.offsetTop;
-        mpos.print();
     });
 });
