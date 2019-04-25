@@ -10,6 +10,7 @@ const FOOD_COUNT = 100;
 
 let foods = [];
 let player;
+let playerTwo;
 
 let colors = [
     '#00f788',
@@ -44,9 +45,12 @@ function init() {
 
     let name = prompt("Enter a name!");
     let color = randomColor();
+    let name2 = prompt("Enter P2's name!");
+    let color2 = randomColor();
     let stroke = strokeColors[colors.indexOf(color)];
 
     player = new Player(0, 0, 25, color, stroke, name, 4);
+    playerTwo = new PlayerTwo(0, 0, 25, color2, stroke, name2, 4);
 
     for(var i = 0; i < FOOD_COUNT; i++){
         generateFood();
@@ -59,10 +63,12 @@ function update() {
 
     for(var i = 0; i < foods.length; i++){
         let eaten = player.intersects(foods[i]);
-        if(!eaten){
+        let eaten2 = playerTwo.intersects(foods[i]);
+        if(!eaten || !eaten2){
             foods[i].draw(c);
         } else{
             player.addMass(foods[i].mass);
+            playerTwo.addMass(foods[i].mass);
             foods.splice(i,1);
             i--;
         }
@@ -74,8 +80,10 @@ function update() {
     }
 
     player.update(mpos);
+    update();
 
     player.draw(c);
+    playerTwo.draw(c);
 
     requestAnimationFrame(update);
 }
