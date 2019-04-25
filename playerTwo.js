@@ -6,6 +6,43 @@ class PlayerTwo extends Food{
         this.name = name;
         this.dx = dx;
         this.dy = dy;
+        let _keyPressed = {
+            w: false,
+            a: false,
+            s: false,
+            d: false
+        };
+
+        window.addEventListener("keydown", function(event) {
+            if (event.key === "w") {
+                _keyPressed.w = true;
+            }
+            if (event.key === "a") {
+                _keyPressed.a = true;
+            }
+            if (event.key === "s") {
+                _keyPressed.s = true;
+            }
+            if (event.key === "d") {
+                _keyPressed.d = true;
+            }
+        });
+
+        window.addEventListener("keyup", function(event) {
+            if (event.key === "w") {
+                _keyPressed.w = false;
+            }
+            if (event.key === "a") {
+                _keyPressed.a = false;
+            }
+            if (event.key === "s") {
+                _keyPressed.s = false;
+            }
+            if (event.key === "d") {
+                _keyPressed.d = false;
+            }
+        });
+        this._keyPressed = _keyPressed;
     }
     draw(c){
         c.lineWidth = this.radius * .075;
@@ -23,59 +60,22 @@ class PlayerTwo extends Food{
         c.fillText(this.name, this.x, this.y);
     }
 
-    let keyPressed = {
-        w: false,
-        a: false,
-        s: false,
-        d: false
-    };
-
-    window.addEventListener("keydown", function(event) {
-        if (event.key === "w") {
-            keyPressed.w = true;
+    update() {
+        if (this._keyPressed.w) {
+            this.dy -= 0.1;
         }
-        if (event.key === "a") {
-            keyPressed.a = true;
+        if (this._keyPressed.a) {
+            this.dx -= 0.1;
         }
-        if (event.key === "s") {
-            keyPressed.s = true;
+        if (this._keyPressed.s) {
+            this.dy += 0.1;
         }
-        if (event.key === "d") {
-            keyPressed.d = true;
+        if (this._keyPressed.d) {
+            this.dx += 0.1;
         }
-    });
-
-    window.addEventListener("keyup", function(event) {
-        if (event.key === "w") {
-            keyPressed.w = false;
-        }
-        if (event.key === "a") {
-            keyPressed.a = false;
-        }
-        if (event.key === "s") {
-            keyPressed.s = false;
-        }
-        if (event.key === "d") {
-            keyPressed.d = false;
-        }
-    });
-    function animate() {
-        requestAnimationFrame(animate);
-        c.fillStyle = "#000000";
-        c.fillRect(0, 0, innerWidth, innerHeight);
-
-        if (keyPressed.w) {
-            circle.dy -= 0.1;
-        }
-        if (keyPressed.a) {
-            circle.dx -= 0.1;
-        }
-        if (keyPressed.s) {
-            circle.dy += 0.1;
-        }
-        if (keyPressed.d) {
-            circle.dx += 0.1;
-        }
+        this.x += this.dx;
+        this.y += this.dy;
+        this.print();
     }
 }
 Object.assign(PlayerTwo, Food);

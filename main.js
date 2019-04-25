@@ -50,7 +50,7 @@ function init() {
     let stroke = strokeColors[colors.indexOf(color)];
 
     player = new Player(0, 0, 25, color, stroke, name, 4);
-    playerTwo = new PlayerTwo(0, 0, 25, color2, stroke, name2, 4);
+    playerTwo = new PlayerTwo(0, 0, 25, color2, stroke, name2, 0, 0);
 
     for(var i = 0; i < FOOD_COUNT; i++){
         generateFood();
@@ -80,7 +80,7 @@ function update() {
     }
 
     player.update(mpos);
-    update();
+    playerTwo.update();
 
     player.draw(c);
     playerTwo.draw(c);
